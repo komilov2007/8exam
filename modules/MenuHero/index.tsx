@@ -1,5 +1,4 @@
 'use client';
-import BlyudaItem from '@/components/BlyudeItem';
 import HeadBtm from '@/components/HeadBtm';
 import MenuHeroItem from '@/components/MenuHeroIt';
 import { MenuRight } from '@/components/svgindex';

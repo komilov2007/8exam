@@ -45,7 +45,7 @@ const Blyuda = () => {
             alt="leaf"
             width={150}
             height={150}
-            className="w-70 h-70 absolute top-120 -left-50 z-1 space-y-reverse rotate-10"
+            className="w-70 h-70 absolute top-100 -left-50 z-1 space-y-reverse rotate-10"
           />
         </div>
         <div className="flex items-end gap-8">

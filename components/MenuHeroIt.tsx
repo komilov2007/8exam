@@ -1,8 +1,8 @@
-import { NewsCardProps } from '@/@types';
+import { NewsCardHero } from '@/@types';
 import Image from 'next/image';
 import { BasketWhite, Like } from './svgindex';
 
-const MenuHeroItem = ({ image, text, name, price }: NewsCardProps) => {
+const MenuHeroItem = ({ image, text, name, price }: NewsCardHero) => {
   return (
     <div className="relative w-65.75 h-77.5 mb-20 rounded-[38px] bg-white/30 backdrop-blur-md px-5 pb-5 pt-14 shadow-md">
       <div className="absolute w-65.75 h-49.25 -top-17 left-32 -translate-x-1/2">

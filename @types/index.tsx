@@ -7,5 +7,11 @@ export interface NewsCardProps {
   image: string;
   text: string;
   name: string;
+  avatar: string;
+}
+export interface NewsCardHero {
+  image: string;
+  text: string;
+  name: string;
   price: string;
 }

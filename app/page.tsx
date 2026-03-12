@@ -11,8 +11,8 @@ export default function Home() {
       <Hero />
       <Blyuda />
       <Prosmotrit />
-      <PochemuM />
       <Bron />
+      <PochemuM />
       <NewsGallery />
       <Prosmotrit />
     </div>
