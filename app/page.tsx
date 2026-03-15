@@ -1,3 +1,4 @@
+import AuthModal from '@/components/AuthModal';
 import Blyuda from '@/modules/Blyuda';
 import Bron from '@/modules/Bron';
 import Hero from '@/modules/Hero';
@@ -15,6 +16,7 @@ export default function Home() {
       <PochemuM />
       <NewsGallery />
       <Prosmotrit />
+      {/* <AuthModal /> */}
     </div>
   );
 }

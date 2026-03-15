@@ -15,3 +15,9 @@ export interface NewsCardHero {
   name: string;
   price: string;
 }
+export interface NewsHeroType {
+  image: string;
+  text: string;
+  name: string;
+  avatar: string;
+}

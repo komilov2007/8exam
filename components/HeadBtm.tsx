@@ -1,16 +1,18 @@
+'use client';
 import { memo } from 'react';
 import Link from 'next/link';
 import { Basket, FooterLogo, Like } from './svgindex';
+import { usePathname } from 'next/navigation';
 
 const HeadBtm = () => {
   const menu = [
     { name: 'Меню', path: '/menu' },
     { name: 'Новости', path: '/news' },
-    { name: 'Бронирование', path: '/bron' },
+    { name: 'Бронирование', path: '/order' },
     { name: 'О нас', path: '/about' },
     { name: 'Контакты', path: '/contacts' },
   ];
-
+  const pathname = usePathname();
   return (
     <div className="relative mt-10 z-20 flex items-center justify-between px-9.5 pt-8">
       <h1 className="text-[52px] leading-none font-extrabold tracking-tight">
@@ -20,7 +22,12 @@ const HeadBtm = () => {
       <ul className="flex items-center gap-10.5 text-[16px] font-medium text-black">
         {menu.map((item) => (
           <li key={item.path} className="cursor-pointer">
-            <Link href={item.path}>{item.name}</Link>
+            <Link
+              href={item.path}
+              className={pathname === item.path ? 'text-red-500' : 'text-black'}
+            >
+              {item.name}
+            </Link>
           </li>
         ))}
       </ul>
