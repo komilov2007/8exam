@@ -1,0 +1,43 @@
+{
+  "Header": {
+    "phone": "+998(90)758383833",
+    "email": "info@bmgsoft.com",
+    "language": "O‘zbekcha",
+    "login": "Akkauntga kirish",
+    "uz": "O‘zbekcha",
+    "ru": "Ruscha"
+  },
+  "Hero": {
+    "title": "MAZALI OVQAT SENI KUTMOQDA!",
+    "button": "Menyuni ko‘rish →"
+  },
+  "WhyUs": {
+    "title": "Nega aynan biz?",
+    "items": {
+      "qualityTitle": "Sifatli mahsulotlar",
+      "qualityText": "Muzey va diqqatga sazovor joylarga tashrif uchun kirish chiptalari",
+      "deliveryTitle": "Tez yetkazib berish",
+      "deliveryText": "Muzey va diqqatga sazovor joylarga tashrif uchun kirish chiptalari",
+      "recipesTitle": "Mazali retseptlar",
+      "recipesText": "Muzey va diqqatga sazovor joylarga tashrif uchun kirish chiptalari",
+      "atmosphereTitle": "Qulay muhit",
+      "atmosphereText": "Muzey va diqqatga sazovor joylarga tashrif uchun kirish chiptalari",
+      "chefTitle": "Tajribali oshpazlar",
+      "chefText": "Muzey va diqqatga sazovor joylarga tashrif uchun kirish chiptalari",
+      "serviceTitle": "Xizmat ko‘rsatish",
+      "serviceText": "Muzey va diqqatga sazovor joylarga tashrif uchun kirish chiptalari"
+    }
+  },
+  "Sivyas": {
+    "title": "Biz bilan bog‘lanish",
+    "emailtext": "Bizga yozing",
+    "emailemail": "info@bmgsoft.com",
+    "emailtg": "t.me/bmgsoft.com",
+    "calltext": "Bizga qo‘ng‘iroq qiling",
+    "callnumber": "+998908670988",
+    "callnumbertwo": "+998865332322",
+    "maptext": "Bizga tashrif buyuring",
+    "mapdesc": "O‘zbekiston, Toshkent",
+    "mapkocha": "Ko‘cha, 24"
+  }
+}

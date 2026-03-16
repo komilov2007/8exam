@@ -1,3 +1,77 @@
+// import PochemuC from '@/components/Pochemu';
+// import {
+//   Car,
+//   Chef,
+//   Coffee,
+//   Home,
+//   Pizza,
+//   UserHeart,
+// } from '@/components/svgindex';
+
+// const PochemuM = () => {
+//   const data = [
+//     {
+//       id: 1,
+//       icon: <Coffee />,
+//       title: 'Качественные продукты',
+//       text: 'Входные билеты в музей, для посещения достопримечательностей, памятников',
+//     },
+//     {
+//       id: 2,
+//       icon: <Car />,
+//       title: 'Быстрая доставка',
+//       text: 'Входные билеты в музей, для посещения достопримечательностей, памятников',
+//     },
+//     {
+//       id: 3,
+//       icon: <Pizza />,
+//       title: 'Вкусные рецепты',
+//       text: 'Входные билеты в музей, для посещения достопримечательностей, памятников',
+//     },
+//     {
+//       id: 4,
+//       icon: <Home />,
+//       title: 'Уютная атмосфера',
+//       text: 'Входные билеты в музей, для посещения достопримечательностей, памятников',
+//     },
+//     {
+//       id: 5,
+//       icon: <Chef />,
+//       title: 'Опытные повара',
+//       text: 'Входные билеты в музей, для посещения достопримечательностей, памятников',
+//     },
+//     {
+//       id: 6,
+//       icon: <UserHeart />,
+//       title: 'Обслуживания',
+//       text: 'Входные билеты в музей, для посещения достопримечательностей, памятников',
+//     },
+//   ];
+
+//   return (
+//     <section className="py-20 container max-w-7xl mx-auto">
+//       <div className="container mx-auto max-w-7xl">
+//         {/* top */}
+//         <h2 className="text-center text-[48px] font-extrabold mb-14">
+//           Почему именно мы?
+//         </h2>
+//         {/* cardlar */}
+//         <div className="grid grid-cols-1 md:grid-cols-3 gap-18">
+//           {data.map((item) => (
+//             <PochemuC
+//               key={item.id}
+//               icon={item.icon}
+//               title={item.title}
+//               text={item.text}
+//             />
+//           ))}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// export default PochemuM;
 import PochemuC from '@/components/Pochemu';
 import {
   Car,
@@ -7,55 +81,57 @@ import {
   Pizza,
   UserHeart,
 } from '@/components/svgindex';
+import { useTranslations } from 'next-intl';
 
 const PochemuM = () => {
+  const t = useTranslations('WhyUs');
+
   const data = [
     {
       id: 1,
       icon: <Coffee />,
-      title: 'Качественные продукты',
-      text: 'Входные билеты в музей, для посещения достопримечательностей, памятников',
+      title: t('items.qualityTitle'),
+      text: t('items.qualityText'),
     },
     {
       id: 2,
       icon: <Car />,
-      title: 'Быстрая доставка',
-      text: 'Входные билеты в музей, для посещения достопримечательностей, памятников',
+      title: t('items.deliveryTitle'),
+      text: t('items.deliveryText'),
     },
     {
       id: 3,
       icon: <Pizza />,
-      title: 'Вкусные рецепты',
-      text: 'Входные билеты в музей, для посещения достопримечательностей, памятников',
+      title: t('items.recipesTitle'),
+      text: t('items.recipesText'),
     },
     {
       id: 4,
       icon: <Home />,
-      title: 'Уютная атмосфера',
-      text: 'Входные билеты в музей, для посещения достопримечательностей, памятников',
+      title: t('items.atmosphereTitle'),
+      text: t('items.atmosphereText'),
     },
     {
       id: 5,
       icon: <Chef />,
-      title: 'Опытные повара',
-      text: 'Входные билеты в музей, для посещения достопримечательностей, памятников',
+      title: t('items.chefTitle'),
+      text: t('items.chefText'),
     },
     {
       id: 6,
       icon: <UserHeart />,
-      title: 'Обслуживания',
-      text: 'Входные билеты в музей, для посещения достопримечательностей, памятников',
+      title: t('items.serviceTitle'),
+      text: t('items.serviceText'),
     },
   ];
 
   return (
     <section className="py-20 container max-w-7xl mx-auto">
       <div className="container mx-auto max-w-7xl">
-        {/* top */}
         <h2 className="text-center text-[48px] font-extrabold mb-14">
-          Почему именно мы?
+          {t('title')}
         </h2>
-        {/* cardlar */}
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-18">
           {data.map((item) => (
             <PochemuC

@@ -1,24 +1,30 @@
+import { useTranslations } from 'next-intl';
 import { Mail, PhoneCall, Xarita } from './svgindex';
 
 const OrderContactSection = () => {
+  const t = useTranslations('Sivyas');
+
   const contacts = [
     {
+      id: 1,
       icon: <Mail />,
-      title: 'Напишите нам',
-      text1: 'info@bmgsoft.com',
-      text2: 't.me/bmgsoft.com',
+      title: t('emailtext'),
+      text: t('emailemail'),
+      text2: t('emailtg'),
     },
     {
+      id: 2,
       icon: <PhoneCall />,
-      title: 'Позвоните нам',
-      text1: '+998908670988',
-      text2: '+998865332322',
+      title: t('calltext'),
+      text: t('callnumber'),
+      text2: t('callnumbertwo'),
     },
     {
+      id: 3,
       icon: <Xarita />,
-      title: 'Посетите нас',
-      text1: 'Узбекистан, Ташкент',
-      text2: 'Улица, 24',
+      title: t('maptext'),
+      text: t('mapdesc'),
+      text2: t('mapkocha'),
     },
   ];
 
@@ -26,13 +32,13 @@ const OrderContactSection = () => {
     <section className="w-full flex justify-center px-4 py-16">
       <div className="w-full max-w-5xl">
         <h2 className="text-center text-4xl font-extrabold text-black">
-          Связаться с нами
+          {t('title')}
         </h2>
 
         <div className="mt-16 grid grid-cols-1 gap-10 md:grid-cols-3">
           {contacts.map((item) => (
             <div
-              key={item.title}
+              key={item.id}
               className="flex flex-col items-center text-center text-black"
             >
               <div className="mb-6">{item.icon}</div>
@@ -41,7 +47,7 @@ const OrderContactSection = () => {
                 {item.title}
               </h3>
 
-              <p className="mt-3 text-sm text-black/80">{item.text1}</p>
+              <p className="mt-3 text-sm text-black/80">{item.text}</p>
               <p className="text-sm text-black/80">{item.text2}</p>
             </div>
           ))}
