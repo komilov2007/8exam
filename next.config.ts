@@ -4,7 +4,14 @@ import createNextIntlPlugin from 'next-intl/plugin';
 const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
-  // boshqa configlaring bo‘lsa shu yerda qoldir
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'anorkhulov.uz',
+      },
+    ],
+  },
 };
 
 export default withNextIntl(nextConfig);

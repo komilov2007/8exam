@@ -1,19 +1,3 @@
-// import { PochemuType } from '@/@types';
-
-// const PochemuC = ({ icon, title, text }: PochemuType) => {
-//   return (
-//     // propsdan olib ishlatyapan
-//     <div className="text-start  max-w-7xl mx-auto container  space-y-4 mr-10">
-//       <div className="flex justify-start">{icon}</div>
-
-//       <h3 className="text-[32px] font-semibold">{title}</h3>
-
-//       <p className="text- opacity-80">{text}</p>
-//     </div>
-//   );
-// };
-
-// export default PochemuC;
 import { PochemuType } from '@/@types';
 
 const PochemuC = ({ icon, title, text }: PochemuType) => {

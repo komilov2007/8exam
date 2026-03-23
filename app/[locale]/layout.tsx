@@ -6,6 +6,8 @@ import { getLocale, getMessages } from 'next-intl/server';
 
 import Header from '@/modules/Header';
 import Footer from '@/modules/Footer';
+import ReactQueryProvider from '@/components/ReactQueryProvider';
+import { Toaster } from 'react-hot-toast';
 
 export const metadata: Metadata = {
   title: 'Restaurant (clone)',
@@ -22,11 +24,14 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className="bg-[url('/background.png')] container max-w-7xl mx-auto bg-cover antialiased">
+      <body className="bg-[url('/background.png')] bg-cover antialiased">
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <Header />
-          {children}
-          <Footer />
+          <ReactQueryProvider>
+            <Header />
+            {children}
+            <Footer />
+            <Toaster position="top-center" />
+          </ReactQueryProvider>
         </NextIntlClientProvider>
       </body>
     </html>

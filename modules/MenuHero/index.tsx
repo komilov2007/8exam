@@ -1,175 +1,111 @@
 'use client';
+
 import HeadBtm from '@/components/HeadBtm';
 import MenuHeroItem from '@/components/MenuHeroIt';
 import { MenuRight } from '@/components/svgindex';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
+import { useProducts } from '@/hooks/useProducts';
+import { useCategories } from '@/hooks/useCategories';
+
 const MenuHero = () => {
-  const [active, setActive] = useState('Первые');
-  const cards = [
-    {
-      id: 1,
-      image: '/potato.png',
-      text: 'Chicken soup',
-      name: 'Spicy with garlic',
-      price: '$10.00',
-    },
-    {
-      id: 2,
-      image: '/potato.png',
-      text: 'Chicken soup',
-      price: '$10.00',
-      name: 'Spicy with garlic',
-    },
-    {
-      id: 3,
-      image: '/potato.png',
-      text: 'Chicken soup',
-      price: '$10.00',
-      name: 'Spicy with garlic',
-    },
-    {
-      id: 4,
-      image: '/potato.png',
-      text: 'Chicken soup',
-      price: '$10.00',
-      name: 'Spicy with garlic',
-    },
-    {
-      id: 5,
-      image: '/potato.png',
-      text: 'Chicken soup',
-      price: '$10.00',
-      name: 'Spicy with garlic',
-    },
-    {
-      id: 6,
-      image: '/potato.png',
-      text: 'Chicken soup',
-      price: '$10.00',
-      name: 'Spicy with garlic',
-    },
-    {
-      id: 7,
-      image: '/potato.png',
-      text: 'Chicken soup',
-      price: '$10.00',
-      name: 'Spicy with garlic',
-    },
-    {
-      id: 8,
-      image: '/potato.png',
-      text: 'Chicken soup',
-      price: '$10.00',
-      name: 'Spicy with garlic',
-    },
-    {
-      id: 9,
-      image: '/potato.png',
-      text: 'Chicken soup',
-      price: '$10.00',
-      name: 'Spicy with garlic',
-    },
-    {
-      id: 10,
-      image: '/potato.png',
-      text: 'Chicken soup',
-      price: '$10.00',
-      name: 'Spicy with garlic',
-    },
-    {
-      id: 11,
-      image: '/potato.png',
-      text: 'Chicken soup',
-      price: '$10.00',
-      name: 'Spicy with garlic',
-    },
-    {
-      id: 12,
-      image: '/potato.png',
-      text: 'Chicken soup',
-      price: '$10.00',
-      name: 'Spicy with garlic',
-    },
-    {
-      id: 13,
-      image: '/potato.png',
-      text: 'Chicken soup',
-      price: '$10.00',
-      name: 'Spicy with garlic',
-    },
-    {
-      id: 14,
-      image: '/potato.png',
-      text: 'Chicken soup',
-      price: '$10.00',
-      name: 'Spicy with garlic',
-    },
-    {
-      id: 15,
-      image: '/potato.png',
-      text: 'Chicken soup',
-      price: '$10.00',
-      name: 'Spicy with garlic',
-    },
-    {
-      id: 16,
-      image: '/potato.png',
-      text: 'Chicken soup',
-      price: '$10.00',
-      name: 'Spicy with garlic',
-    },
-  ];
-  const categories = ['Первые', 'Вторые', 'Салаты', 'Напитки', 'Фаст-Фуд'];
+  const [active, setActive] = useState<string>('all');
+
+  const { data: productsData, isLoading, isError } = useProducts();
+  const { data: categoriesData } = useCategories();
+
+  const products = Array.isArray(productsData?.data)
+    ? productsData.data
+    : Array.isArray(productsData)
+      ? productsData
+      : [];
+
+  const categories = Array.isArray(categoriesData?.data)
+    ? categoriesData.data
+    : Array.isArray(categoriesData)
+      ? categoriesData
+      : [];
+
+  const filteredProducts = useMemo(() => {
+    if (active === 'all') return products;
+
+    return products.filter((item: any) => {
+      const categoryId =
+        item?.category?.id || item?.categoryId || item?.category_id;
+
+      return String(categoryId) === String(active);
+    });
+  }, [active, products]);
+
   return (
-    <section className="-mt-8 pb-10">
-      <div className="">
-        <div className="relative h-556  rounded-[34px] bg-white/22 backdrop-blur-[10px] shadow-[0_10px_40px_rgba(0,0,0,0.08)]">
+    <section className="-mt-8 pb-10 relative">
+      <div>
+        <div className="relative rounded-[34px] bg-white/22 shadow-[0_10px_40px_rgba(0,0,0,0.08)] backdrop-blur-[10px]">
           <HeadBtm />
-          {/* link uchun */}
-          <div className="flex mt-25 ml-10">
+
+          <div className="ml-10 mt-25 flex">
             <Link
               href="/"
-              className="text-[#626464] flex items-center justify-center gap-2"
+              className="flex items-center justify-center gap-2 text-[#626464]"
             >
-              Главная{' '}
+              Главная
               <span className="mt-1">
                 <MenuRight />
               </span>
             </Link>
+
             <Link href="/menu">
-              {' '}
-              <span className="text-black ml-1">Меню</span>
+              <span className="ml-1 text-black">Меню</span>
             </Link>
           </div>
-          <h2 className="text-center mt-8 text-[48px] font-extrabold">Меню</h2>
-          {/* filter uchun navbari  */}
-          <div className="flex items-center justify-center mt-14">
-            <nav className="w-164 h-13.5 bg-white/35 rounded-[27px] flex items-center justify-around">
-              {categories.map((item) => (
+
+          <h2 className="mt-8 text-center text-[48px] font-extrabold">Меню</h2>
+
+          <div className="mt-14  flex items-center justify-center">
+            <nav className="flex min-w-164 items-center justify-center gap-3 rounded-[27px] bg-white/35 px-4 py-3">
+              <button
+                onClick={() => setActive('all')}
+                className={`rounded-[27px] px-4 py-2 transition ${
+                  active === 'all' ? 'bg-white/50' : ''
+                }`}
+              >
+                Все
+              </button>
+
+              {categories.map((item: any) => (
                 <button
-                  key={item}
-                  onClick={() => setActive(item)}
-                  className={`px-4 h-8.5 rounded-[27px] transition ${
-                    active === item ? 'bg-white/50' : ''
+                  key={item.id}
+                  onClick={() => setActive(String(item.id))}
+                  className={`rounded-[27px] px-4 py-2 transition ${
+                    active === String(item.id) ? 'bg-white/50' : ''
                   }`}
                 >
-                  {item}
+                  {item.name || item.title}
                 </button>
               ))}
             </nav>
           </div>
-          <div className="flex mt-37 items-end gap-2">
-            <div className="grid grid-cols-4 h-69.25 gap-10   ml-10 flex-1">
-              {cards.map((item) => (
-                <MenuHeroItem
-                  key={item.id}
-                  image={item.image}
-                  text={item.text}
-                  name={item.name}
-                  price={item.price}
-                />
-              ))}
+
+          <div className="mt-25 flex items-end gap-2">
+            <div className="ml-10 grid flex-1 grid-cols-4 gap-10">
+              {isLoading ? (
+                <p>Loading...</p>
+              ) : isError ? (
+                <p>Xatolik yuz berdi</p>
+              ) : filteredProducts.length > 0 ? (
+                filteredProducts.map((item: any) => (
+                  <MenuHeroItem
+                    key={item.id}
+                    id={item.id}
+                    image={item?.image || item?.images?.[0] || ''}
+                    text={item?.title || item?.name || 'No title'}
+                    name={item?.description || 'No description'}
+                    price={item?.price || 0}
+                  />
+                ))
+              ) : (
+                <p className="text-center">Mahsulot topilmadi</p>
+              )}
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import BlyudaItem from '@/components/BlyudeItem';
+import BlyudeItem from '@/components/BlyudeItem';
 import Image from 'next/image';
 import {
   Carousel,
@@ -9,52 +9,26 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import { useProducts } from '@/hooks/useProducts';
 
 const Blyuda = () => {
-  const cards = [
-    {
-      id: 1,
-      image: '/potato.png',
-      text: 'Chicken soup',
-      name: 'Spicy with garlic',
-      price: '$10.00',
-    },
-    {
-      id: 2,
-      image: '/potato.png',
-      text: 'Chicken soup',
-      name: 'Spicy with garlic',
-      price: '$10.00',
-    },
-    {
-      id: 3,
-      image: '/potato.png',
-      text: 'Chicken soup',
-      name: 'Spicy with garlic',
-      price: '$10.00',
-    },
-    {
-      id: 4,
-      image: '/potato.png',
-      text: 'Chicken soup',
-      name: 'Spicy with garlic',
-      price: '$10.00',
-    },
-    {
-      id: 5,
-      image: '/potato.png',
-      text: 'Chicken soup',
-      name: 'Spicy with garlic',
-      price: '$10.00',
-    },
-    {
-      id: 6,
-      image: '/potato.png',
-      text: 'Chicken soup',
-      name: 'Spicy with garlic',
-      price: '$10.00',
-    },
-  ];
+  const { data, isLoading, isError } = useProducts();
+
+  const products = Array.isArray(data?.data)
+    ? data.data
+    : Array.isArray(data)
+      ? data
+      : Array.isArray(data?.items)
+        ? data.items
+        : [];
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (isError) {
+    return <p>Xatolik yuz berdi</p>;
+  }
 
   return (
     <section className="py-16">
@@ -71,7 +45,7 @@ const Blyuda = () => {
           className="absolute -left-50 top-100 z-1 h-70 w-70 rotate-10"
         />
 
-        <div className="relative px-12 -mt-20">
+        <div className="relative -mt-20 px-12">
           <Carousel
             opts={{
               align: 'start',
@@ -80,23 +54,24 @@ const Blyuda = () => {
             className="w-full"
           >
             <CarouselContent className="-ml-8 overflow-visible">
-              {cards.map((item) => (
+              {products.map((item: any) => (
                 <CarouselItem
                   key={item.id}
                   className="basis-1/4 overflow-visible pl-8"
                 >
-                  <BlyudaItem
-                    image={item.image}
-                    text={item.text}
-                    name={item.name}
-                    price={item.price}
+                  <BlyudeItem
+                    id={item.id}
+                    image={item.image || item.images?.[0] || ''}
+                    text={item.title || item.name || 'No title'}
+                    name={item.description || 'No description'}
+                    price={item.price || 0}
                   />
                 </CarouselItem>
               ))}
             </CarouselContent>
 
-            <CarouselPrevious className="-left-15 bg-white/35 z-50 h-14 w-14" />
-            <CarouselNext className="-right-15 bg-white/35 z-50 h-14 w-14" />
+            <CarouselPrevious className="-left-15 z-50 h-14 w-14 bg-white/35" />
+            <CarouselNext className="-right-15 z-50 h-14 w-14 bg-white/35" />
           </Carousel>
         </div>
       </div>

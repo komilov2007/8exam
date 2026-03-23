@@ -3,7 +3,7 @@ import OrderHero from '@/modules/OrderHero';
 
 const Page = () => {
   return (
-    <div>
+    <div className="max-w-7xl mx-auto container">
       <OrderHero />
       <NewsGallery />
     </div>

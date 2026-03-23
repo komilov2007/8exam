@@ -30,11 +30,11 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="w-full max-w-7xl mx-auto py-10">
-      <div className=" grid grid-cols-1 md:grid-cols-4 gap-10">
+    <footer className="bg-[url('/footer-bg.png')] mt-10 w-full bg-cover antialiased h-78.5 py-10">
+      <div className=" grid grid-cols-1 md:grid-cols-4 max-w-7xl mx-auto  gap-20">
         {/* left */}
         <div className="space-y-4">
-          <h2 className="text-3xl font-bold">
+          <h2 className="text-4xl font-bold">
             <FooterLogo />
           </h2>
 
@@ -51,7 +51,7 @@ const Footer = () => {
           <div key={section.title}>
             <h3 className="text-lg font-bold mb-3">{section.title}</h3>
 
-            <ul className="space-y-2 text-sm">
+            <ul className="space-y-2 text-lg">
               {section.items.map((item) => (
                 <li key={item}>{item}</li>
               ))}

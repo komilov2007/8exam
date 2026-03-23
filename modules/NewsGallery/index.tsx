@@ -1,29 +1,20 @@
+'use client';
+
 import NewsCard from '@/components/NewCard';
+import { useNews } from '@/hooks/useNews';
 
 const NewsGallery = () => {
-  const cards = [
-    {
-      id: 1,
-      image: '/gallery.png',
-      text: 'Используйте новые структуры, чтобы представить исходный обзор или добраться быстрее, проектируя поход к самым эффективным.',
-      name: 'Сергей',
-      avatar: '/sergey.png',
-    },
-    {
-      id: 2,
-      image: '/gallery.png',
-      text: 'Используйте новые структуры, чтобы представить исходный обзор или добраться быстрее, проектируя поход к самым эффективным.',
-      name: 'Сергей',
-      avatar: '/sergey.png',
-    },
-    {
-      id: 3,
-      image: '/gallery.png',
-      text: 'Используйте новые структуры, чтобы представить исходный обзор или добраться быстрее, проектируя поход к самым эффективным.',
-      name: 'Сергей',
-      avatar: '/sergey.png',
-    },
-  ];
+  const { data, isLoading, isError } = useNews();
+
+  const news = data?.data || data || [];
+
+  if (isLoading) {
+    return <p className="text-center">Loading...</p>;
+  }
+
+  if (isError) {
+    return <p className="text-center">News yuklashda xatolik</p>;
+  }
 
   return (
     <section className="py-16">
@@ -34,13 +25,16 @@ const NewsGallery = () => {
 
         <div className="flex items-end gap-8">
           <div className="grid grid-cols-3 h-69.25 gap-8 flex-1">
-            {cards.map((item) => (
+            {news.slice(0, 3).map((item: any) => (
               <NewsCard
                 key={item.id}
-                image={item.image}
-                text={item.text}
-                name={item.name}
-                avatar={item.avatar}
+                image={item?.image || item?.images?.[0]}
+                text={item?.description || item?.text}
+                name={item?.author?.firstName || item?.name || 'Admin'}
+                avatar={
+                  item?.author?.avatar ||
+                  'https://anorkhulov.uz/uploads/default-avatar.png'
+                }
               />
             ))}
           </div>
