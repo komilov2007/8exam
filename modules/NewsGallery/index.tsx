@@ -25,18 +25,21 @@ const NewsGallery = () => {
 
         <div className="flex items-end gap-8">
           <div className="grid grid-cols-3 h-69.25 gap-8 flex-1">
-            {news.slice(0, 3).map((item: any) => (
-              <NewsCard
-                key={item.id}
-                image={item?.image || item?.images?.[0]}
-                text={item?.description || item?.text}
-                name={item?.author?.firstName || item?.name || 'Admin'}
-                avatar={
-                  item?.author?.avatar ||
-                  'https://anorkhulov.uz/uploads/default-avatar.png'
-                }
-              />
-            ))}
+            {Array.isArray(news) &&
+              news
+                .slice(0, 3)
+                .map((item: any) => (
+                  <NewsCard
+                    key={item.id}
+                    image={item?.image || item?.images?.[0]}
+                    text={item?.description || item?.text}
+                    name={item?.author?.firstName || item?.name || 'Admin'}
+                    avatar={
+                      item?.author?.avatar ||
+                      'https://anorkhulov.uz/uploads/default-avatar.png'
+                    }
+                  />
+                ))}
           </div>
         </div>
       </div>
