@@ -58,7 +58,7 @@ const LikePage = () => {
     const res = await addToCart(productId, 1);
 
     if (res.ok) {
-      toast.success('Savatchaga qo‘shildi 🛒');
+      toast.success('Savatchaga qo‘shildi ');
       window.dispatchEvent(new Event('cart-updated'));
     } else {
       toast.error(res.message);
@@ -119,13 +119,21 @@ const LikePage = () => {
             >
               <div className="absolute z-999 top-0 h-49.25 w-65.75">
                 <div className="relative -ml-1 h-63.25 w-60.75 border-2 border-green-500">
-                  {imageSrc && (
+                  {imageSrc ? (
                     <Image
                       src={imageSrc}
                       alt="img"
                       fill
                       sizes="(max-width:768px) 100vw, 33vw"
                       className="object-contain"
+                    />
+                  ) : (
+                    <Image
+                      src="/dimlama.png"
+                      alt="pizza img"
+                      fill
+                      sizes="(max-width:768px) 100vw, 33vw"
+                      className="object-contain -ml-10"
                     />
                   )}
                 </div>

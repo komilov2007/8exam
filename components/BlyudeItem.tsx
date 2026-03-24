@@ -128,7 +128,7 @@ const BlyudeItem = ({ id, image, text, name, price }: Props) => {
     const res = await addToCart(productId, 1);
 
     if (res.ok) {
-      toast.success('Savatchaga qo‘shildi 🛒');
+      toast.success('Savatchaga qo‘shildi');
       window.dispatchEvent(new Event('cart-updated'));
     } else {
       toast.error(res.message);
