@@ -4,9 +4,8 @@ import './globals.css';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 
-import Header from '@/modules/Header';
-import Footer from '@/modules/Footer';
 import ReactQueryProvider from '@/components/ReactQueryProvider';
+import LayoutWrapper from '@/components/LayoutWrapper';
 import { Toaster } from 'react-hot-toast';
 
 export const metadata: Metadata = {
@@ -16,9 +15,9 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   const locale = await getLocale();
   const messages = await getMessages();
 
@@ -27,9 +26,8 @@ export default async function RootLayout({
       <body className="bg-[url('/background.png')] bg-cover antialiased">
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ReactQueryProvider>
-            <Header />
-            {children}
-            <Footer />
+            <LayoutWrapper>{children}</LayoutWrapper>
+
             <Toaster position="top-center" />
           </ReactQueryProvider>
         </NextIntlClientProvider>

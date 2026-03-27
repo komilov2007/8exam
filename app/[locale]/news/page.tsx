@@ -1,4 +1,3 @@
-import NewsGallery from '@/modules/NewsGallery';
 import NewsHero from '@/modules/NewsHero';
 
 const Page = () => {

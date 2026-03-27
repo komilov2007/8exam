@@ -22,7 +22,7 @@ const NewsHero = () => {
   return (
     <section className="-mt-8 pb-20">
       <div className="">
-        <div className="relative   rounded-[34px] bg-white/40 backdrop-blur-[10px] shadow-[0_10px_40px_rgba(0,0,0,0.08)]">
+        <div className="relative  h-500 rounded-[34px] bg-white/40 backdrop-blur-[10px] shadow-[0_10px_40px_rgba(0,0,0,0.08)]">
           <HeadBtm />
           <div className="flex mt-25 ml-10">
             <Link
@@ -59,11 +59,12 @@ const NewsHero = () => {
             </div>
           </div>
           <div className="-mt-7! mb-10">
+            {' '}
             <Pagination />
           </div>
           <NewsPageGallery />
           <div className="mt-10 pb-20">
-            <Pagination />
+            <Pagination />{' '}
           </div>
         </div>
       </div>

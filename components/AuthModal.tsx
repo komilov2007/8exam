@@ -1,57 +1,78 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import toast from 'react-hot-toast';
+import { signInUser } from '@/services';
 import { Qoshiq } from './svgindex';
-import { useSignIn } from '@/hooks/useSignIn';
 
 type AuthModalProps = {
+  open: boolean;
   onClose: () => void;
   onOpenRegister: () => void;
 };
 
-const AuthModal = ({ onClose, onOpenRegister }: AuthModalProps) => {
+const AuthModal = ({ open, onClose, onOpenRegister }: AuthModalProps) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [isPending, setIsPending] = useState(false);
 
-  const signInMutation = useSignIn();
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  if (!open) return null;
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const formData = {
-      username: username.trim(),
-      password: password.trim(),
-    };
+    try {
+      setIsPending(true);
 
-    console.log('SIGN IN BODY:', formData);
+      const res = await signInUser({
+        username,
+        password,
+      });
 
-    signInMutation.mutate(formData, {
-      onSuccess: (data) => {
-        const token = data?.data?.accessToken;
-        const user = data?.data?.user;
+      const data = res?.data || res;
+      const user = data?.user || res?.user;
+      const accessToken = data?.accessToken || res?.accessToken;
+      const refreshToken = data?.refreshToken || res?.refreshToken;
 
-        if (token) {
-          document.cookie = `token=${token}; path=/; max-age=604800`;
-        }
+      if (!user || !accessToken) {
+        toast.error('Login maʼlumotlari notoʻgʻri');
+        return;
+      }
 
-        if (user) {
-          localStorage.setItem('user', JSON.stringify(user));
-        }
+      document.cookie = `token=${accessToken}; path=/;`;
+      document.cookie = `role=${user.role}; path=/;`;
+      document.cookie = `user=${encodeURIComponent(JSON.stringify(user))}; path=/;`;
 
-        toast.success('Muvaffaqiyatli kirdingiz');
+      if (refreshToken) {
+        document.cookie = `refreshToken=${refreshToken}; path=/;`;
+      }
+
+      localStorage.setItem('user', JSON.stringify(user));
+
+      toast.success('Muvaffaqiyatli kirdingiz ');
+
+      if (user.role === 'ADMIN') {
+        window.location.href = '/uz/admin';
+      } else {
         onClose();
-      },
-    });
+        window.location.reload();
+      }
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || 'Login qilishda xatolik ');
+    } finally {
+      setIsPending(false);
+    }
   };
+
   return (
     <section
-      className="fixed inset-0 z-999 flex items-center justify-center bg-black/40 px-4"
+      className="fixed inset-0 z-[999] flex items-center justify-center bg-black/40 px-4"
       onClick={onClose}
     >
       <div className="absolute inset-0 backdrop-blur-md" />
 
       <div
-        className="relative z-10 flex aspect-square w-full max-w-107.5 flex-col justify-center rounded-[28px] bg-white/65 px-10 py-10 shadow-xl backdrop-blur-xl"
+        className="relative z-10 flex aspect-square w-full max-w-[430px] flex-col justify-center rounded-[28px] bg-white/65 px-10 py-10 shadow-xl backdrop-blur-xl"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -62,7 +83,7 @@ const AuthModal = ({ onClose, onOpenRegister }: AuthModalProps) => {
           ×
         </button>
 
-        <div className="absolute left-1/4 top-0 flex h-19.5 w-19.5 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-4 border-white/80 bg-black p-10 text-white shadow-lg">
+        <div className="absolute left-1/4 top-0 flex h-[78px] w-[78px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-4 border-white/80 bg-black p-10 text-white shadow-lg">
           <span>
             <Qoshiq />
           </span>
@@ -80,7 +101,8 @@ const AuthModal = ({ onClose, onOpenRegister }: AuthModalProps) => {
                 placeholder="Ваше имя пользователя"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="w-87.5 border-b border-black/30 bg-transparent pb-2 outline-none"
+                className="w-[350px] border-b border-black/30 bg-transparent pb-2 outline-none"
+                required
               />
             </div>
 
@@ -91,6 +113,7 @@ const AuthModal = ({ onClose, onOpenRegister }: AuthModalProps) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full bg-transparent text-[14px] text-black placeholder:text-black/45 outline-none"
+                required
               />
             </div>
           </div>
@@ -101,13 +124,12 @@ const AuthModal = ({ onClose, onOpenRegister }: AuthModalProps) => {
           >
             Забыли пароль?
           </button>
-
           <button
             type="submit"
-            disabled={signInMutation.isPending}
+            disabled={isPending}
             className="mx-auto mt-8 rounded-2xl bg-black px-8 py-4 text-[14px] font-medium text-white transition hover:opacity-90 disabled:opacity-50"
           >
-            {signInMutation.isPending ? 'Loading...' : 'Вход в аккаунт'}
+            {isPending ? 'Loading...' : 'Вход в аккаунт'}
           </button>
 
           <button

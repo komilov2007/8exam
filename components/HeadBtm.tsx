@@ -17,20 +17,31 @@ const HeadBtm = () => {
 
   const pathname = usePathname();
   const [likedCount, setLikedCount] = useState(0);
+  const [basketCount, setBasketCount] = useState(0);
+
+  const loadCounts = () => {
+    setLikedCount(getLikedCount());
+
+    const basket = localStorage.getItem('basketProducts');
+    const parsedBasket = basket ? JSON.parse(basket) : [];
+
+    const totalBasketCount = parsedBasket.reduce(
+      (acc: number, item: any) => acc + item.quantity,
+      0
+    );
+
+    setBasketCount(totalBasketCount);
+  };
 
   useEffect(() => {
-    const updateLikes = () => {
-      setLikedCount(getLikedCount());
-    };
+    loadCounts();
 
-    updateLikes();
+    const interval = setInterval(() => {
+      loadCounts();
+    }, 500);
 
-    window.addEventListener('likes-updated', updateLikes);
-
-    return () => {
-      window.removeEventListener('likes-updated', updateLikes);
-    };
-  }, []);
+    return () => clearInterval(interval);
+  }, [pathname]);
 
   return (
     <div className="relative z-20 mt-10 flex items-center justify-between px-9.5 pt-8">
@@ -58,7 +69,7 @@ const HeadBtm = () => {
           </Link>
 
           {likedCount > 0 && (
-            <span className="absolute right-0 top-0 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
+            <span className="absolute right-0 top-0 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-0.5 text-[10px] font-bold text-white">
               {likedCount}
             </span>
           )}
@@ -68,9 +79,12 @@ const HeadBtm = () => {
           <Link href="/basket" className="text-[15px]">
             <Basket />
           </Link>
-          <span className="absolute right-0 top-0 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
-            0
-          </span>
+
+          {basketCount > 0 && (
+            <span className="absolute right-0 top-0 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-0.5 text-[10px] font-bold text-white">
+              {basketCount}
+            </span>
+          )}
         </div>
       </div>
     </div>

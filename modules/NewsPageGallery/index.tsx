@@ -12,7 +12,7 @@ const NewsPageGallery = () => {
   if (isError) return <p className="text-center">Gallery yuklashda xatolik</p>;
 
   return (
-    <div className="mx-auto mb-10 max-w-6xl">
+    <div className="mx-auto mt-10 mb-10 max-w-6xl">
       <h2 className="mb-10 text-center text-[48px] font-extrabold">Галерея</h2>
 
       <div className="grid grid-cols-4 gap-8">
@@ -28,7 +28,7 @@ const NewsPageGallery = () => {
                 alt="gallery"
                 width={270}
                 height={300}
-                className="h-15 w-full rounded-md object-cover"
+                className="h-55 w-full rounded-md object-cover"
               />
             </div>
           );

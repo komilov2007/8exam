@@ -133,7 +133,7 @@ const LikePage = () => {
                       alt="pizza img"
                       fill
                       sizes="(max-width:768px) 100vw, 33vw"
-                      className="object-contain -ml-10"
+                      className="object-contain"
                     />
                   )}
                 </div>
